@@ -1,38 +1,17 @@
-import { eq } from 'drizzle-orm';
-import { db, pool } from './db/db.js';
-import { demoUsers } from './db/schema.js';
+import express from 'express';
+import { matchRouter } from "./routes/matches.js";
 
-async function main() {
-  try {
-    console.log('Performing CRUD operations...');
+const app = express();
+const port = 8000;
 
-    const [newUser] = await db
-      .insert(demoUsers)
-      .values({ name: 'Admin User', email: `admin-${Date.now()}@example.com` })
-      .returning();
-    
-    console.log('✅ CREATE: New user created:', newUser);
+app.use(express.json());
 
-    const foundUser = await db.select().from(demoUsers).where(eq(demoUsers.id, newUser.id));
-    console.log('✅ READ: Found user:', foundUser[0]);
+app.get('/', (req, res) => {
+    res.send('Hello From Express server!');
+})
 
-    const [updatedUser] = await db
-      .update(demoUsers)
-      .set({ name: 'Super Admin' })
-      .where(eq(demoUsers.id, newUser.id))
-      .returning();
-    
-    console.log('✅ UPDATE: User updated:', updatedUser);
+app.use('/matches', matchRouter);
 
-    await db.delete(demoUsers).where(eq(demoUsers.id, newUser.id));
-    console.log('✅ DELETE: User deleted.');
-
-  } catch (error) {
-    console.error('❌ Error:', error);
-  } finally {
-    if (pool) await pool.end();
-  }
-}
-
-main();
-
+app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
+});
