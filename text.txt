@@ -1,0 +1,40 @@
+technologies used:
+socket.io
+pusher
+ably
+ws library
+
+
+Feb 5th 2026:
+
+    Full duplex websockets
+
+    Data transfer
+    JSON or binary
+    JSON: slower, better structured
+    binary: faster, unreadable
+
+
+    Client -- server
+    socket.send(msg);
+
+    Acks
+
+
+    WebSockets
+    WebRTC
+    WebTransport
+    Server Sent events
+
+Feb 6th 2026:
+
+    REST APIs: for commands & initial state
+        -Creates the match (Use Zod)
+        -Fetches the list of matches (Use Zod)
+        -Load the app for the first time
+
+    WebSockets: For live updates
+        -Match created
+        -Score updated
+        -Commentary added
+        -Live events pushed instantly
