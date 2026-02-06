@@ -1,17 +1,38 @@
-const express = require('express');
-const app = express();
-const port = 8000;
+import { eq } from 'drizzle-orm';
+import { db, pool } from './db/db.js';
+import { demoUsers } from './db/schema.js';
 
-// Use JSON middleware
-app.use(express.json());
+async function main() {
+  try {
+    console.log('Performing CRUD operations...');
 
-// Root GET route
-app.get('/', (req, res) => {
-  res.send('Welcome to SportSync!');
-});
+    const [newUser] = await db
+      .insert(demoUsers)
+      .values({ name: 'Admin User', email: `admin-${Date.now()}@example.com` })
+      .returning();
+    
+    console.log('✅ CREATE: New user created:', newUser);
 
-// Start server and log URL
-app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
-});
+    const foundUser = await db.select().from(demoUsers).where(eq(demoUsers.id, newUser.id));
+    console.log('✅ READ: Found user:', foundUser[0]);
+
+    const [updatedUser] = await db
+      .update(demoUsers)
+      .set({ name: 'Super Admin' })
+      .where(eq(demoUsers.id, newUser.id))
+      .returning();
+    
+    console.log('✅ UPDATE: User updated:', updatedUser);
+
+    await db.delete(demoUsers).where(eq(demoUsers.id, newUser.id));
+    console.log('✅ DELETE: User deleted.');
+
+  } catch (error) {
+    console.error('❌ Error:', error);
+  } finally {
+    if (pool) await pool.end();
+  }
+}
+
+main();
 
