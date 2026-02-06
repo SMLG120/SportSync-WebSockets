@@ -7,12 +7,12 @@ ws library
 
 Feb 5th 2026:
 
-    Full duplex webssockets
+    Full duplex websockets
 
     Data transfer
     JSON or binary
-    JSON: slower, btter structured
-    binary: fastery, unreadable
+    JSON: slower, better structured
+    binary: faster, unreadable
 
 
     Client -- server
@@ -28,7 +28,7 @@ Feb 5th 2026:
 
 Feb 6th 2026:
 
-    REST APIs: for commands & intial state
+    REST APIs: for commands & initial state
         -Creates the match (Use Zod)
         -Fetches the list of matches (Use Zod)
         -Load the app for the first time
