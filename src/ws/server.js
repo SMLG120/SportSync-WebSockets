@@ -1,7 +1,7 @@
 import { WebSocket, WebSocketServer } from 'ws';
 
 function sendJson(socket, payload) {
-    if (socket.readyState !== socket.OPEN) return;
+    if (socket.readyState !== WebSocket.OPEN) return;
 
     socket.send(JSON.stringify(payload));
 }
@@ -38,8 +38,10 @@ export function attachWebSocketServer(server) {
 
     const interval = setInterval(() => {
         wss.clients.forEach((ws) => {
-            if (ws.isAlive === false) return ws.terminate();
-
+            if (ws.isAlive === false) {
+                ws.terminate();
+                return;
+            }
             ws.isAlive = false;
             ws.ping();
         })
