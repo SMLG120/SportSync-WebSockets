@@ -30,7 +30,11 @@ export function attachWebSocketServer(server) {
         socket.on('pong', () => { socket.isAlive = true; });
         sendJson(socket, { type: 'welcome' });
         socket.on('error', console.error);
-    })
+    });
+
+    wss.on('error', (err) => {
+        console.error('WebSocket server error:', err);
+    });
 
     const interval = setInterval(() => {
         wss.clients.forEach((ws) => {
