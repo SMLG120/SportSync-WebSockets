@@ -42,6 +42,6 @@ Feb 6th 2026:
 
 Feb 7th 2026:
     Additional feature with Arcjet
-        rate limiting
+        rate-limiting
         bot protection
-        implmement on both http and websockets servers
+        implemented on both HTTP and WebSockets servers
