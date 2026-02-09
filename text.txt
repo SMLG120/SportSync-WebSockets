@@ -48,6 +48,6 @@ Feb 7th 2026:
 
 Feb 8th 2026:
     
-    Match APIs handle overall structured
+    Match APIs handle overall structure
 
-    Commentary API capture story of the game
+    Commentary API captures the story of the game
