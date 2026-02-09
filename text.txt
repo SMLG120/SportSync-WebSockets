@@ -45,3 +45,9 @@ Feb 7th 2026:
         rate-limiting
         bot protection
         implemented on both HTTP and WebSockets servers
+
+Feb 8th 2026:
+    
+    Match APIs handle overall structured
+
+    Commentary API capture story of the game
